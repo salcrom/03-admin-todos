@@ -15,18 +15,18 @@ interface Props {
 
 export const TodoItem = ({ todo, toggleTodo }:Props) => {
 
-    const [ todoOptimistic, toggleTodoOptimistic] = useOptimistic(
+    const [ todoOptimistic, toggleOptimistic] = useOptimistic(
         todo,
         (state, newCompleteValue: boolean ) => ({ ...state, complete: newCompleteValue })
     );
 
     const onToggleTodo = async() => {
         try {
-            startTransition( () => toggleTodoOptimistic( !todoOptimistic.complete ) );
+            startTransition( () => toggleOptimistic( !todoOptimistic.complete ) );
             
             await toggleTodo( todoOptimistic.id, !todoOptimistic.complete );
         } catch (error) {
-            startTransition( () => toggleTodoOptimistic( !todoOptimistic.complete ) );
+            toggleOptimistic( !todoOptimistic.complete );
         }
     }
 
@@ -35,7 +35,7 @@ export const TodoItem = ({ todo, toggleTodo }:Props) => {
         <div className={ todoOptimistic.complete ? styles.todoDone : styles.todoPending }>
             <div className="flex flex-col sm:flex-row justify-start items-center gap-4">
 
-                <div 
+                <div
                     // onClick={ () => toggleTodo(todoOptimistic.id, !todoOptimistic.complete) }
                     onClick={ onToggleTodo }
                     className={`
@@ -51,7 +51,7 @@ export const TodoItem = ({ todo, toggleTodo }:Props) => {
                 </div>
 
                 <div className="text-center sm:text-left">
-                    { todo.description }
+                    { todoOptimistic.description }
                 </div>
             </div>
         </div>

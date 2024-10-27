@@ -1,5 +1,5 @@
 export const dymanic = 'force-dynamic';
-export const revalidate = 0;
+// export const revalidate = 0;
 
 
 import prisma from "@/lib/prisma";
@@ -14,6 +14,7 @@ export const metadata = {
 export default async function ServerTodosPage() {
 
   const todos = await prisma.todo.findMany({ orderBy: { description: 'asc' } });
+  // fetch('....', { next: { revalidate: 60 } })
 
   return (
     <>

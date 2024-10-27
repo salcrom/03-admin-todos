@@ -1,13 +1,10 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
-
 import { IoTrashOutline } from "react-icons/io5";
+
+import * as todosApi from '@/todos/helpers/todos';
 import { addTodo, deleteCompleted } from "../actions/todo-actions";
-
-// import * as todosApi from '@/todos/helpers/todos';
-
 
 
 
